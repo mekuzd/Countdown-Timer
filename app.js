@@ -30,19 +30,24 @@ let tempYear = tempDate.getFullYear();
 let tempMonth = tempDate.getMonth();
 let tempDay = tempDate.getDate();
 // months are ZERO index based;
+// weekdays are also ZERO index based
 const futureDate = new Date(tempYear, tempMonth, tempDay + 10, 11, 30, 0);
 
 // let futureDate = new Date(2020, 3, 24, 11, 30, 0);
+//date format is (year,month,day,hrs,minutes,seconds) new Date()
+// passed the format as argument in the date function... with this method you can select a precise date 
 
 const year = futureDate.getFullYear();
 const hours = futureDate.getHours();
 const minutes = futureDate.getMinutes();
 
-let month = futureDate.getMonth();
-month = months[month];
+/// the array months and weekdays was set up cos we can only get the index of the month and weekday
+// months are ZERO index based;
+// weekdays are also ZERO index based
+let month = months[futureDate.getMonth()];
 const weekday = weekdays[futureDate.getDay()];
 const date = futureDate.getDate();
-giveaway.textContent = `giveaway ends on ${weekday}, ${date} ${month} ${year} ${hours}:${minutes}am`;
+giveaway.innerHTML = `giveaway ends on ${weekday}, ${date} ${month} ${year} ${hours}:${minutes}am`;
 
 const futureTime = futureDate.getTime();
 function getRemaindingTime() {
