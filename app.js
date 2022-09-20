@@ -25,13 +25,13 @@ const giveaway = document.querySelector('.giveaway');
 const deadline = document.querySelector('.deadline');
 const items = document.querySelectorAll('.deadline-format h4');
 
-let tempDate = new Date();
-let tempYear = tempDate.getFullYear();
-let tempMonth = tempDate.getMonth();
-let tempDay = tempDate.getDate();
+let currentDate = new Date();
+let currentYear = currentDate.getFullYear();
+let currentMonth = currentDate.getMonth();
+let currentDay = currentDate.getDate();
 // months are ZERO index based;
 // weekdays are also ZERO index based
-const futureDate = new Date(tempYear, tempMonth, tempDay + 10, 11, 30, 0);
+const futureDate = new Date(currentYear, currentMonth, currentDay + 10, 11, 30, 0);
 
 // let futureDate = new Date(2020, 3, 24, 11, 30, 0);
 //date format is (year,month,day,hrs,minutes,seconds) new Date()
@@ -44,16 +44,20 @@ const minutes = futureDate.getMinutes();
 /// the array months and weekdays was set up cos we can only get the index of the month and weekday
 // months are ZERO index based;
 // weekdays are also ZERO index based
-let month = months[futureDate.getMonth()];
+const month = months[futureDate.getMonth()];
 const weekday = weekdays[futureDate.getDay()];
 const date = futureDate.getDate();
 giveaway.innerHTML = `giveaway ends on ${weekday}, ${date} ${month} ${year} ${hours}:${minutes}am`;
 
 const futureTime = futureDate.getTime();
+// this gives the future time give away ends in milliseconds
+
 function getRemaindingTime() {
+  //today : gives the present date in milliseconds
   const today = new Date().getTime();
 
-  const t = futureTime - today;
+  const Endtime = futureTime - today;
+  // Endtime : gives the diffrence in milliseconds from present day and future date
   // 1s = 1000ms
   // 1m = 60s
   // 1hr = 60m
@@ -63,11 +67,10 @@ function getRemaindingTime() {
   const oneHour = 60 * 60 * 1000;
   const oneMinute = 60 * 1000;
   // calculate all values
-  let days = t / oneDay;
-  days = Math.floor(days);
-  let hours = Math.floor((t % oneDay) / oneHour);
-  let minutes = Math.floor((t % oneHour) / oneMinute);
-  let seconds = Math.floor((t % oneMinute) / 1000);
+  let days = Math.floor(Endtime / oneDay);
+  let hours = Math.floor((Endtime % oneDay) / oneHour);
+  let minutes = Math.floor((Endtime % oneHour) / oneMinute);
+  let seconds = Math.floor((Endtime % oneMinute) / 1000);
 
   // set values array
   const values = [days, hours, minutes, seconds];
@@ -82,7 +85,7 @@ function getRemaindingTime() {
     item.innerHTML = format(values[index]);
   });
 
-  if (t < 0) {
+  if (Endtime < 0) {
     clearInterval(countdown);
     deadline.innerHTML = `<h4 class="expired">sorry, this giveaway has expired!</h4>`;
   }
