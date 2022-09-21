@@ -24,6 +24,9 @@ const weekdays = [
 const giveaway = document.querySelector('.giveaway');
 const deadline = document.querySelector('.deadline');
 const items = document.querySelectorAll('.deadline-format h4');
+//or
+// const items = document.querySelectorAll('div > h4');
+
 
 let currentDate = new Date();
 let currentYear = currentDate.getFullYear();
@@ -54,9 +57,9 @@ const futureTime = futureDate.getTime();
 
 function getRemaindingTime() {
   //today : gives the present date in milliseconds
-  const today = new Date().getTime();
+  const todayTime = new Date().getTime();
 
-  const Endtime = futureTime - today;
+  const Endtime = futureTime - todayTime;
   // Endtime : gives the diffrence in milliseconds from present day and future date
   // 1s = 1000ms
   // 1m = 60s
@@ -74,7 +77,10 @@ function getRemaindingTime() {
 
   // set values array
   const values = [days, hours, minutes, seconds];
+
+  // this function was set up to add 0 to the time if the value in each H4 is less than 10
   function format(item) {
+    //item here is just a parameter
     if (item < 10) {
       return (item = `0${item}`);
     }
@@ -82,6 +88,7 @@ function getRemaindingTime() {
   }
 
   items.forEach(function (item, index) {
+    //item here is H4
     item.innerHTML = format(values[index]);
   });
 
