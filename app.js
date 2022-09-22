@@ -92,12 +92,11 @@ function getRemaindingTime() {
     item.innerHTML = format(values[index]);
   });
 
+  let countdown = setInterval(getRemaindingTime, 1000);
   if (Endtime < 0) {
     clearInterval(countdown);
     deadline.innerHTML = `<h4 class="expired">sorry, this giveaway has expired!</h4>`;
   }
 }
-// countdown;
-let countdown = setInterval(getRemaindingTime, 1000);
-//set initial values
+
 getRemaindingTime();
