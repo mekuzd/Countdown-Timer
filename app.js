@@ -47,6 +47,7 @@ const minutes = futureDate.getMinutes();
 /// the array months and weekdays was set up cos we can only get the index of the month and weekday
 // months are ZERO index based;
 // weekdays are also ZERO index based
+// weeekday can be known when we have the year,month and date
 const month = months[futureDate.getMonth()];
 const weekday = weekdays[futureDate.getDay()];
 const date = futureDate.getDate();
